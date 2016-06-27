@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Jeremie Gaucher</title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+	<script type="text/javascript" src="js/pagecontent.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link href="s.css" rel="stylesheet">
+</head>
+<body>
+<header>
+	<nav><a href="index.html">Suivi</a><a href="objectif.html">L'objectif</a><a href="recette.html">La recette</a><a href="instrumentation.html">Instrumentation</a></nav>
+</header>
+<section>
+	<article>
+		<h2>Comment ça marche?</a></h2>
+		<p class="date">23 Avril 2015</p>
+		<p>Le composteur est instrumenté à deux endroits. Tout d’abord il y a une sonde de température digitale qui est insérée au centre du tas.</p>
+		<figure>
+			<img src="img/20150422/Waterproof_DS18B20_Digital_temperature_sensor.jpg" alt="Waterproof DS18B20 Digital temperature sensor" />
+			<figcaption>Waterproof DS18B20 Digital temperature sensor</figcaption>
+		</figure>
+		<figure>
+			<img src="img/20150422/compost_02.jpg" alt="La sonde sur un tuteur" />
+			<figcaption>La voici bien fixée à un tuteur de plante</figcaption>
+		</figure>
+		<figure>
+			<img src="img/20150422/compost_03.jpg" alt="Le composteur" />
+			<figcaption>La voici en position</figcaption>
+		</figure>
+		<p>La deuxieme sonde est un thermistor enduit d’epoxy qui va mesurer la température ambiante à l’extérieur de la boîte.</P>
+		<figure>
+			<img src="img/20150422/10K_Precision_Epoxy_Thermistor_3950_NTC.jpg" alt="10K Precision_Epoxy Thermistor 3950 NTC" />
+			<figcaption>10K Precision Epoxy Thermistor 3950 NTC</figcaption>
+		</figure>
+		<p>Les deux sondes sont branchées dans un prise téléphonique qui sert  de boîte de jonction.</P>
+		<figure>
+			<img src="img/20150422/compost_05.jpg" alt="Les sondes thermiques" />
+			<figcaption>Boîte de jonction</figcaption>
+		</figure>
+		<p>Celle-ci est disposée au-dessus du tas sous le couvercle de la boite à l’abris des intempéries.</P>
+		<figure>
+			<img src="img/20150422/compost_06.jpg" alt="Sous le composte" />
+			<figcaption>Installation de la boîte de jonction</figcaption>
+		</figure>
+		<p>Elle est reliée à une prise identique dans la maison via un cable téléphonique de 23 m.</P>
+		<figure>
+			<img src="img/20150422/compost_07.jpg" alt="La connection des sondes au Raspberry Pi" />
+			<figcaption>Prise d'arrivée</figcaption>
+		</figure>
+		<p>Le signal transmis par les sondes est traité par un petit circuit connecté à un Raspberry Pi.</P>
+		<figure>
+			<img src="img/20150422/compost_08.jpg" alt="Le Raspberry Pi" />
+			<figcaption>Circuit et Raspberry Pi</figcaption>
+		</figure>
+		<p>C’est le Raspberry Pi qui exécute le programme de contrôle du circuit électronique. Il est relié aux Internets et héberge la page web que vous êtes en train de lire.</p>
+		<p>À intervalle régulier, le Raspberry Pi allume le circuit via un transistor le temps de faire ses lectures. Tout d’abord il fait l’acquisition de 10 mesures de température au centre du tas avec la sonde numérique et en fait la moyenne. Puis il mesure 10 fois le voltage du thermistor qu’il convertit en température au moyen du convertisseur analogique-digital (ADC) avant d’en faire la moyenne. Les points aberrants qui se trouve à l’extérieur d’un écart-type de la moyenne sont rejetés.</p>
+		<p>La longueur importante du fil (23 m) fait en sorte qu’il se transforme en antenne et capte toute sorte de bruit (principalement le 60Hz du réseau électrique). Puisque le voltage du circuit est très faible (3,3V) ce bruit peu rapidement dégrader la communication. Le circuit contient donc deux condensateurs qui servent à filtrer les fréquences de plus de 3Hz qui pourraient être présentes dans le fil. La valeur totale des composantes du circuit s’élève à un peu moins de $5.
+</P>
+		<figure>
+			<img src="img/20150422/compost_09.jpg" alt="Le circuit" />
+			<figcaption>Le circuit</figcaption>
+		</figure>
+		<p>Les données sont écrites dans un fichier texte qui est consulté et affiché sur un graphique sur
+la page web.</p>
+		<figure>
+			<img src="img/20150422/compost_10.png" alt="L'affichage graphique" />
+			<figcaption>Exemple de graphique</figcaption>
+		</figure>
+	</article>
+</section>
+<footer>
+	<hr>
+</footer>
+</body></html>

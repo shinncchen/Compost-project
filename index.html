@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Jeremie Gaucher</title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script>
+		$( document ).bind( 'mobileinit', function(){
+			$.mobile.loading().hide();
+			$.mobile.ajaxEnabled=false;
+		});
+    </script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+	<script type="text/javascript" src="js/papaparse.min.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['corechart']}]}"></script>
+	<script type="text/javascript" src="js/googlechart.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/pagecontent.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<link href="s.css" rel="stylesheet">
+</head>
+<body>
+	<script type="text/javascript">google.setOnLoadCallback( pagecontent.loadPageContent() );</script>
+<header>
+	<nav><a href="index.html">Suivi</a><a href="objectif.html">L'objectif</a><a href="recette.html">La recette</a><a href="instrumentation.html">Instrumentation</a></nav>
+</header>
+<section>
+	<article>
+		<h2 id="title"></h2>
+		<h1 id="desc"></h1>
+		<p class="date" id="date"></p>
+		<!--default graph container-->
+		<figure class="graph">
+			<div style="height:34px;">
+				<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#modal_div">
+					<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+				</button>
+			</div>
+			<div id="chart_div"></div>
+			<figcaption><a id="graphurl" href=""><i class="fa fa-line-chart"></i> Graphique plein écran</a></figcaption>
+		</figure>
+
+		<div class="modal fade" id="modal_div" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">Options du Chart</h4>
+					</div>
+
+					<!-- Modal body -->
+					<div class="modal-body">
+					<form role="form">
+						<!-- latest temperature read label -->
+						<label for="tempLabel">Derniers releves de temperature</label> <br/>
+						<div id="tempLabel" class="btn-group btn-group-xs btn-group-justified" role="group" aria-label="Temperature label"></div>
+						<br/>
+						<div class="row">
+							<!-- data logs -->
+							<fieldset class="form-group col-sm-6">
+								<label for="graphlist">Saison</label>
+								<select class="form-control" id="graphlist"></select>
+							</fieldset>
+							<!-- filter select menu -->
+							<fieldset class="form-group col-sm-6">
+								<label for="filterlist">Filtre</label>
+								<select  class="form-control" id="filterlist"></select>
+							</fieldset>
+						</div>
+						<!-- chart toggle -->
+						<div id="labelchart">
+							<label for="btnchart">Switch Chart</label> <br/>
+							<button id="btnchart" type="button" class="btn btn-default" ></button>
+						</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</article>
+</section>
+<footer>
+	<hr>
+</footer>
+</body></html>

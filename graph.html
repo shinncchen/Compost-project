@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Jeremie Gaucher</title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script>
+		$( document ).bind( 'mobileinit', function(){
+			$.mobile.loading().hide();
+			$.mobile.ajaxEnabled=false;
+		});
+    </script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+	<script type="text/javascript" src="js/papaparse.min.js"></script>
+	<script type="text/javascript" src="js/purl.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['corechart']}]}"></script>
+	<script type="text/javascript" src="js/googlechart.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/jqColorPicker.min.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/pagecontent.js" charset="utf-8"></script>	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<!-- color picker on top of modal window -->	
+	<style>.cp-color-picker {z-index: 9999;}</style>
+</head>
+<body>
+
+	<div class="container-fluid" style="margin-top:10px">
+		<button id="btnchart" type="button" class="btn btn-default" >&#8631; Rate &#8451; / hr</button>
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#modal_div">
+			<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+		</button>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modal_div" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Options du Chart</h4>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+				<ul class="nav nav-tabs">
+					<li class="active"><a data-toggle="tab" href="#status">Status</a></li>
+					<li><a data-toggle="tab" href="#columns">Data Columns</a></li>
+				</ul>
+				<div class="tab-content">
+					<div id="status" class="tab-pane fade in active">
+						<!-- latest temperature read label -->
+						<br/>
+						<label for="tempLabel">Derniers releves de temperature</label> <br/>
+						<div id="tempLabel" class="btn-group btn-group-xs btn-group-justified" role="group" aria-label="Temperature label"></div>
+						<!-- filter select menu -->
+						<br/>
+						<fieldset class="form-group">
+							<label for="filterlist">Filtre</label>
+							<select  class="form-control" id="filterlist"></select>
+						</fieldset>
+					</div>
+					<div id="columns" class="tab-pane fade">
+						<!-- columns properties -->
+						<div id="columns" class="container-fluid"></div>
+					</div>
+				</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button id="saveOptions" type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--default graph container-->
+	<figure class="graph" id="chart_div"></figure>
+</body></html>
+
+<script type="text/javascript">
+	(function() {
+		// parse the current page URL
+		var url = $.url();
+		var graph = {
+			'datapath' : url.param('datapath') || 'templogs/temp.log',
+			'graphtitle' : url.param('graphtitle') || 'Température du compost',
+			'columns' : url.param('columns') || ' ',
+			'series' : url.param('series') || 2,
+			'colors' : url.param('colors') || ' ',
+			'offset' : parseInt( url.param('offset') ) || 0,
+			'deltaColumn': parseInt( url.param('deltaColumn') ) || 0
+		};
+		// init button to switch graph + option menu
+		$(window).on( 'endOfCallback', function() {
+			pagecontent.setPageGraphOptions( googlechart.getColumnsProperty(), graph );
+		});
+		// draw chart from parameters
+		google.setOnLoadCallback( googlechart.buildChart( $.extend({}, graph) ));
+	})();
+</script>

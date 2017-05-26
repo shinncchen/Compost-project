@@ -2,62 +2,90 @@
 <content>
 
 	<article>
-		<title name="2016 Printemps">Suivi de la température d'un tas de compost</title>
+		<title name="Printemps 2017">Suivi de la température d'un tas de compost</title>
 		<description></description>
-		<date>14 Avril 2016</date>
-		<graph>
-			<datapath>templogs/temp_pri_2016.txt</datapath>
-			<graphtitle>Température du compost - cuvée	Printemps 2016</graphtitle>
+		<date>17 avril 2017</date>
+		<chart>
+			<datapath>templogs/temp_pri_2017.txt</datapath>
+			<charttitle>Température du compost - cuvée	Printemps 2017</charttitle>
 			<columns>date,Centre du tas,annotation,hide,Aéroport de Montréal</columns>
 			<colors>#dc3912,#008000,#3366cc</colors>
 			<offset>0</offset>
-			<deltaColumn>1</deltaColumn>
-		</graph>
+			<rateColumn>1</rateColumn>
+		</chart>
 	</article>
 
 
 	<article>
-		<title name="2015 Hiver">L'oeuf ou le vers?</title>
+		<title name="Hiver 2016-17">L'oeuf ou le vers?</title>
+		<description>Suivi de la température d'une colonie de vers rouges durant l'hiver 2016-17</description>
+		<date>5 février 2017</date>
+		<chart>
+			<datapath>templogs/temp_hiv_2017.log</datapath>
+			<charttitle> </charttitle>
+			<columns>date,Centre du compost,annotation,Intérieur du composteur,Extérieur</columns>
+			<colors>#dc3912,#008000,#43459d</colors>
+			<offset>0</offset>
+			<rateColumn>0</rateColumn>
+		</chart>
+	</article>
+
+
+	<article>
+		<title name="Printemps 2016">Suivi de la température d'un tas de compost</title>
+		<description></description>
+		<date>14 avril 2016</date>
+		<chart>
+			<datapath>templogs/temp_pri_2016.txt</datapath>
+			<charttitle>Température du compost - cuvée	Printemps 2016</charttitle>
+			<columns>date,Centre du tas,annotation,hide,Aéroport de Montréal</columns>
+			<colors>#dc3912,#008000,#3366cc</colors>
+			<offset>0</offset>
+			<rateColumn>1</rateColumn>
+		</chart>
+	</article>
+
+
+	<article>
+		<title name="Hiver 2015-16">L'oeuf ou le vers?</title>
 		<description>Suivi d'une population de vers rouges durant l'hiver 2015-16</description>
 		<date>7 novembre 2015</date>
-		<graph>
-			<datapath>templogs/temp_hiver.log</datapath>
-			<graphtitle> </graphtitle>
+		<chart>
+			<datapath>templogs/temp_hiv_2016.log</datapath>
+			<charttitle> </charttitle>
 			<columns>date,Centre du tas,annotation,Intérieur du composteur,Extérieur</columns>
 			<colors>#dc3912,#008000,#43459d</colors>
 			<offset>0</offset>
-			<deltaColumn>0</deltaColumn>
-		</graph>
+			<rateColumn>0</rateColumn>
+		</chart>
 	</article>
 
-
 	<article>
-		<title name="2015 Ete">Suivi de la température d'un tas de compost</title>
-		<description></description>
-		<date>1 Juin 2015</date>
-		<graph>
-			<datapath>templogs/temp_ete.log</datapath>
-			<graphtitle>Température du compost - cuvée Ete 2015</graphtitle>
-			<columns>date,Centre du tas,annotation,Extérieur</columns>
-			<colors>#dc3912,#3366cc</colors>
-			<offset>0</offset>
-			<deltaColumn>1</deltaColumn>
-		</graph>
-	</article>
-
-
-	<article>
-		<title name="2015 Printemps">Suivi de la température d'un tas de compost</title>
+		<title name="Printemps 2015">Suivi de la température d'un tas de compost</title>
 		<description></description>
 		<date>23 Avril 2015</date>
-		<graph>
-			<datapath>templogs/temp.log</datapath>
-			<graphtitle>Température du compost - cuvée printemps 2015</graphtitle>
+		<chart>
+			<datapath>templogs/temp_pri_2015.log</datapath>
+			<charttitle>Température du compost - cuvée printemps 2015</charttitle>
 			<columns>datetime,Centre du tas,annotation,Extérieur</columns>
 			<colors>#dc3912,#3366cc</colors>
 			<offset>0</offset>
-			<deltaColumn>1</deltaColumn>
-		</graph>
+			<rateColumn>1</rateColumn>
+		</chart>
+	</article>
+
+	<article>
+		<title name="Printemps 2014">Suivi de la température d'un tas de compost</title>
+		<description></description>
+		<date>24 Avril 2014</date>
+		<chart>
+			<datapath>templogs/temp_pri_2014.log</datapath>
+			<charttitle>Température du compost - cuvée printemps 2015</charttitle>
+			<columns>datetime,Centre du tas,annotation,hide,Extérieur</columns>
+			<colors>#dc3912,#008000,#3366cc</colors>
+			<offset>0</offset>
+			<rateColumn>1</rateColumn>
+		</chart>
 	</article>
 
 </content>

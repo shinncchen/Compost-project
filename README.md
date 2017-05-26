@@ -9,4 +9,4 @@ This project is a tutorial on building a compost temperature monitoring system w
 * Capacitors
 
 # Note
-To create a new data set, you will need to create new node "article" into the file content.xml.
+To create a new data set, you will need to create new node "article" in content.xml. Our current live project can be seen at moncompost.com.

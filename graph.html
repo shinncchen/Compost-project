@@ -4,103 +4,132 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Jeremie Gaucher</title>
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script>
-		$( document ).bind( 'mobileinit', function(){
-			$.mobile.loading().hide();
-			$.mobile.ajaxEnabled=false;
-		});
-    </script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">google.charts.load('current', {'packages':['corechart']});</script>
 	<script type="text/javascript" src="js/papaparse.min.js"></script>
 	<script type="text/javascript" src="js/purl.js"></script>
-	<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['corechart']}]}"></script>
-	<script type="text/javascript" src="js/googlechart.js" charset="utf-8"></script>
+	<script type="text/javascript" src="js/pagecontent.js?v=1.02" charset="utf-8"></script>
+	<script type="text/javascript" src="js/googlechart.js?v=1.02" charset="utf-8"></script>
 	<script type="text/javascript" src="js/jqColorPicker.min.js" charset="utf-8"></script>
-	<script type="text/javascript" src="js/pagecontent.js" charset="utf-8"></script>	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-	<!-- color picker on top of modal window -->	
-	<style>.cp-color-picker {z-index: 9999;}</style>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<link href="s.css" rel="stylesheet">
+	<link href="spinner.css" rel="stylesheet">
+	<!-- color picker on top of modal window -->
+	<style>.cp-color-picker {z-index: 1051;}</style>
 </head>
 <body>
-
 	<div class="container-fluid" style="margin-top:10px">
-		<button id="btnchart" type="button" class="btn btn-default" >&#8631; Rate &#8451; / hr</button>
+		<!-- refresh button -->
+		<fieldset id="refreshbtn" class="form-group col-xs-1 refresh">
+			<br/>
+			<label></label>
+		</fieldset>
+		<!-- data select menu -->
+		<fieldset class="form-group col-xs-3">
+			<label for="chartlist">Saison</label>
+			<select class="form-control" id="chartlist"></select>
+		</fieldset>
+		<!-- filter select menu -->
+		<fieldset class="form-group col-xs-3">
+			<label for="filterlist">Durée</label>
+			<select  class="form-control" id="filterlist">
+				<option value="-28">Dernier mois</option>
+				<option value="-21">3 dernières semaines</option>
+				<option value="-14">2 dernières semaines</option>
+				<option value="-7">Dernières semaine</option>
+				<option value="-3">3 derniers jours</option>
+				<option value="-1">dernière journée</option>
+				<option value="0">Complète</option>
+				<option value="1">Première journée</option>
+				<option value="3">3 premiers jours</option>
+				<option value="7">Première semaine</option>
+				<option value="14">2 premières semaines</option>
+				<option value="21">3 premières semaines</option>
+				<option value="28">Premier mois</option>
+			</select>
+		</fieldset>
+		<!-- visualization select menu -->
+		<fieldset class="form-group col-xs-3">
+			<label for="charttypelist">Visualisation</label>
+			<select  class="form-control" id="charttypelist">
+				<option value="0"><h4>Températures</h4></option>
+				<option value="1"><h4>Variation</h4></option>
+				<option value="2"><h4>Années antérieures</h4></option>
+				<option value="3"><h4>Degrés-jours</h4></option>
+			</select>
+		</fieldset>
 		<!-- Button trigger modal -->
-		<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#modal_div">
-			<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-		</button>
+		<div class="form-group col-xs-2">
+			<br/>
+			<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#modal_div">
+				<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+			</button>
+		</div>
 	</div>
 
+	<!--spinner animation-->
+	<div id="loader"></div>
+	<!--default chart container-->
+	<figure id="chart_div" class="chart" style="display:box;"></figure>
+
 	<!-- Modal -->
-	<div class="modal fade" id="modal_div" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal fade" id="modal_div" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">Options du Chart</h4>
+					<h4 class="modal-title" id="myModalLabel">Base de données</h4>
 				</div>
 
 				<!-- Modal body -->
 				<div class="modal-body">
-				<ul class="nav nav-tabs">
-					<li class="active"><a data-toggle="tab" href="#status">Status</a></li>
-					<li><a data-toggle="tab" href="#columns">Data Columns</a></li>
-				</ul>
-				<div class="tab-content">
-					<div id="status" class="tab-pane fade in active">
-						<!-- latest temperature read label -->
-						<br/>
+					<form role="form">
+						<!-- temperature label -->
 						<label for="tempLabel">Derniers releves de temperature</label> <br/>
 						<div id="tempLabel" class="btn-group btn-group-xs btn-group-justified" role="group" aria-label="Temperature label"></div>
-						<!-- filter select menu -->
 						<br/>
-						<fieldset class="form-group">
-							<label for="filterlist">Filtre</label>
-							<select  class="form-control" id="filterlist"></select>
-						</fieldset>
-					</div>
-					<div id="columns" class="tab-pane fade">
 						<!-- columns properties -->
 						<div id="columns" class="container-fluid"></div>
-					</div>
-				</div>
+					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button id="saveOptions" type="button" class="btn btn-primary">Save changes</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						<i class="fa fa-times" aria-hidden="true"></i>
+						Fermer
+					</button>
+					<button id="saveOptions" type="button" class="btn btn-primary">
+						<i class="fa fa-check" aria-hidden="true"></i>
+						Appliquer
+					</button>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<!--default graph container-->
-	<figure class="graph" id="chart_div"></figure>
 </body></html>
 
 <script type="text/javascript">
 	(function() {
 		// parse the current page URL
 		var url = $.url();
-		var graph = {
-			'datapath' : url.param('datapath') || 'templogs/temp.log',
-			'graphtitle' : url.param('graphtitle') || 'Température du compost',
-			'columns' : url.param('columns') || ' ',
-			'series' : url.param('series') || 2,
-			'colors' : url.param('colors') || ' ',
-			'offset' : parseInt( url.param('offset') ) || 0,
-			'deltaColumn': parseInt( url.param('deltaColumn') ) || 0
+		var chart = {
+			'chartindex': parseInt( url.param('chartindex') ) || 0,
+			'datapath': url.param('datapath') || 'templogs/temp.log',
+			'name': url.param('name') || '',
+			'charttitle': url.param('charttitle') || 'Température du compost',
+			'columns': url.param('columns').toString() || ' ',
+			'series': url.param('series') || 2,
+			'colors': url.param('colors').toString() || ' ',
+			'offset': parseInt( url.param('offset') ) || 0,
+			'rateColumn': parseInt( url.param('rateColumn') ) || 0
 		};
-		// init button to switch graph + option menu
-		$(window).on( 'endOfCallback', function() {
-			pagecontent.setPageGraphOptions( googlechart.getColumnsProperty(), graph );
-		});
-		// draw chart from parameters
-		google.setOnLoadCallback( googlechart.buildChart( $.extend({}, graph) ));
+
+		google.charts.setOnLoadCallback( pagecontent.loadPageContent(chart) );
 	})();
 </script>
